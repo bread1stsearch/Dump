@@ -1,0 +1,13 @@
+{% if topic %}
+<h1>{{ topic.topic_text }}</h1>
+{% if topic.is_acronym %}
+<h3> - {{ topic.acronym_set.get.acronym_expanded }}</h3>
+{% endif %}
+<ul>
+    {% for o in topic.oneliner_set.all %}
+    <li><p>{{ o.text }}</p></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No topic</p>
+{% endif %}

@@ -1,0 +1,26 @@
+{% if topic_list %}
+<h1>Topics</h1>
+<ul>
+    <ol>
+        {% for t in topic_list %}
+
+        <li><a href="/topics/{{ t.id }}/">{{ t.topic_text }}</a></li>
+        {% if t.is_acronym %}
+            {{ t.acronym_set.get.acronym_expanded }}
+        {% endif %}
+        {% endfor %}
+    </ol>
+</ul>
+<h1>One-Liners</h1>
+<ul>
+    <ol>
+        {% for o in oneliner_list %}
+
+        <li><a href="/topics/{{ o.topic.id }}/oneliner">{{ o.text }}</a></li>
+
+        {% endfor %}
+    </ol>
+</ul>
+{% else %}
+<p>No topics are available!</p>
+{% endif %}
