@@ -1,13 +1,25 @@
 {% if topic %}
 <h1>{{ topic.topic_text }}</h1>
 {% if topic.is_acronym %}
-<h3> - {{ topic.acronym_set.get.acronym_expanded }}</h3>
+<h3> - {{ topic.acronym.acronym_expanded }}</h3>
 {% endif %}
 <ul>
     {% for o in topic.oneliner_set.all %}
-    <li><p>{{ o.text }}</p></li>
+    <li>
+        <p>{{ o.text }}</p>
+        <form method="POST" action="{% url 'delete_oneliner' o.id %}">
+            {% csrf_token %}
+            <input type="submit" value="Delete" name="to_delete">
+        </form>
+    </li>
     {% endfor %}
 </ul>
 {% else %}
 <p>No topic</p>
 {% endif %}
+
+<form method="POST" action="{% url 'add_oneliner' topic.id %}">
+    {% csrf_token %}
+    <input type="text" name="added_oneliner">
+    <input type="submit" value="Add Oneliner">
+</form>

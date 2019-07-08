@@ -4,13 +4,28 @@
     <ol>
         {% for t in topic_list %}
 
-        <li><a href="/topics/{{ t.id }}/">{{ t.topic_text }}</a></li>
+        <li><a href="/topics/{{ t.id }}/">{{ t.topic_text }}</a>
+        <form method="post" action="{% url 'delete_topic' t.id%}">
+            {% csrf_token %}
+            <input type="submit" value="Delete" name="to_delete">
+        </form>
+        </li>
         {% if t.is_acronym %}
-            {{ t.acronym_set.get.acronym_expanded }}
+            {{ t.acronym.acronym_expanded }}
         {% endif %}
         {% endfor %}
     </ol>
 </ul>
+
+<form action="{% url 'index' %}" method="post">
+    {% csrf_token %}
+    <p>Topic: </p>
+    <input name="added_topic" type="text" required>
+    <p>Acronym: </p>
+    <input name="acronym" type="text">
+    <button type="submit">Add Topic</button>
+</form>
+
 <h1>One-Liners</h1>
 <ul>
     <ol>
@@ -24,3 +39,4 @@
 {% else %}
 <p>No topics are available!</p>
 {% endif %}
+

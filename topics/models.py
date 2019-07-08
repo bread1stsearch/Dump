@@ -1,13 +1,17 @@
 from django.db import models
 from django.utils import timezone
 import datetime
-
+from django import forms
 
 # Create your models here.
 class Topic(models.Model):
     topic_text = models.CharField(max_length=200)
     add_date = models.DateTimeField('date added')
     is_acronym = models.BooleanField(default=False)
+
+    def setup(self, topic_text="default topic title"):
+        self.topic_text = topic_text
+        self.add_date = timezone.now()
 
     def was_added_recently(self):
         return self.add_date >= timezone.now() - datetime.timedelta(days=7)
@@ -17,7 +21,7 @@ class Topic(models.Model):
 
 
 class Acronym(models.Model):
-    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
+    topic = models.OneToOneField(Topic, on_delete=models.CASCADE)
     acronym_expanded = models.CharField(max_length=500)
 
     def __str__(self):
