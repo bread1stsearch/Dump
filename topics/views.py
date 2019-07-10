@@ -2,10 +2,11 @@ from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
+from django.views.generic.edit import CreateView,UpdateView, DeleteView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
-from .models import Topic,Oneliner,Acronym
+from .models import Topic, Oneliner, Acronym
 from .forms import TopicForm
 
 i = 0
@@ -103,7 +104,9 @@ class TopicView(generic.DetailView):
     model = Topic
 
 
-
+class TopicCreateView(CreateView):
+    model = Topic
+    fields = ["topic_text", "add_date"]
 
 
 
