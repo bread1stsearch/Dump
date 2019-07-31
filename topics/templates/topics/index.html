@@ -1,3 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+<head>
+    {% load static %}
+    <link type="text/css" rel="stylesheet" href="{% static 'topics/css/style_common.css' %}">
+</head>
+
+<body>
+<div class="topContainer">
+    <div class="homeButtonContainer">
+        <form action="{% url 'index' %}" method="get">
+            {% csrf_token %}
+            <button class="homeButton homeButtonText">Home</button>
+        </form>
+    </div>
+</div>
 {% if topic_list %}
 <h1>Topics</h1>
 <ul>
@@ -5,13 +23,15 @@
         {% for t in topic_list %}
 
         <li><a href="/topics/{{ t.id }}/">{{ t.topic_text }}</a>
-        <form method="post" action="{% url 'delete_topic' t.id%}">
-            {% csrf_token %}
-            <input type="submit" value="Delete" name="to_delete">
-        </form>
+            <form method="post" action="{% url 'delete_topic' t.id%}">
+                {% csrf_token %}
+                <span>
+                <input type="submit" value="Delete" name="to_delete">
+            </span>
+            </form>
         </li>
         {% if t.is_acronym %}
-            {{ t.acronym.acronym_expanded }}
+        <span>{{ t.acronym.acronym_expanded }}</span>ß
         {% endif %}
         {% endfor %}
     </ol>
@@ -39,4 +59,15 @@
 {% else %}
 <p>No topics are available!</p>
 {% endif %}
+
+<div ng-app="">
+    <p>Angular!</p>
+    <p>Name: <input type="text" ng-model="name"></p>
+    <p>{{8}}</p>
+
+</div>
+
+</body>
+</html>
+
 
