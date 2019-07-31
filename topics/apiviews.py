@@ -24,6 +24,7 @@ class TopicDetail(generics.RetrieveUpdateDestroyAPIView):
         topic_data = TopicSerializer(topic).data
         return Response(topic_data)
 
+
 class OnelinerDetail(generics.ListAPIView):
     queryset = Oneliner.objects.all()
     serializer_class = OnelinerSerializer
@@ -36,6 +37,7 @@ class AcronymList(generics.CreateAPIView):
     def get_queryset(self):
         topic = self.request.topic
         return Acronym.objects.get()
+
 
 class TopicViewSet(viewsets.ModelViewSet):
     queryset = Topic.objects.all()

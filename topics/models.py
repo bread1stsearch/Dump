@@ -46,3 +46,11 @@ class Steps(models.Model):
 
     def __str__(self):
         return self.num_steps
+
+
+class Resource(models.Model):
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
+    text = models.CharField(max_length=5000)
+
+    def __str__(self):
+        return self.text
