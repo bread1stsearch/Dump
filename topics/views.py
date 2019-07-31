@@ -9,7 +9,6 @@ from django.utils import timezone
 from .models import Topic, Oneliner, Acronym
 from .forms import TopicForm
 
-i = 0
 
 # Create your views here
 def index(request):
