@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.renderers import JSONRenderer
 from topics.models import Topic, Oneliner, Acronym
 from rest_framework.response import Response
 from django.db import models
@@ -20,12 +21,12 @@ class AcronymSerializer(serializers.ModelSerializer):
 
 class TopicSerializer(serializers.ModelSerializer):
     # if many to one relationship,
-    # object_set references list of objects with foreign key to topic
+    # <fieldname>_set references list of objects with foreign key to topic
     oneliner_set = OnelinerSerializer(many=True, read_only=True)
     acronym = AcronymSerializer(many=False, read_only=True)
 
     class Meta:
         model = Topic
         fields = ['id', 'topic_text', 'is_acronym', 'oneliner_set', 'acronym']
-        depth = 0
+        depth = 1
 
