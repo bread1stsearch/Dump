@@ -37,6 +37,10 @@
     </ol>
 </ul>
 
+{% else %}
+<p>No topics are available!</p>
+{% endif %}
+
 <form action="{% url 'index' %}" method="post">
     {% csrf_token %}
     <p>Topic: </p>
@@ -45,27 +49,6 @@
     <input name="acronym" type="text">
     <button type="submit">Add Topic</button>
 </form>
-
-<h1>One-Liners</h1>
-<ul>
-    <ol>
-        {% for o in oneliner_list %}
-
-        <li><a href="/topics/{{ o.topic.id }}/oneliner">{{ o.text }}</a></li>
-
-        {% endfor %}
-    </ol>
-</ul>
-{% else %}
-<p>No topics are available!</p>
-{% endif %}
-
-<div ng-app="">
-    <p>Angular!</p>
-    <p>Name: <input type="text" ng-model="name"></p>
-    <p>{{8}}</p>
-
-</div>
 
 </body>
 </html>
