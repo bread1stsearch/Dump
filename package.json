@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --mode development ./DumpProject/frontend/src/index.js --output ./DumpProject/frontend/static/frontend/main.js",
-    "build": "webpack --mode production ./DumpProject/frontend/src/index.js --output ./DumpProject/frontend/static/frontend/main.js"
+    "dev": "webpack --mode development ./Dump/frontend/src/index.js --output ./Dump/frontend/static/frontend/main.js",
+    "build": "webpack --mode production ./Dump/frontend/src/index.js --output ./Dump/frontend/static/frontend/main.js"
   },
   "keywords": [],
   "author": "",
