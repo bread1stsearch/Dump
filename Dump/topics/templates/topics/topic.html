@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <link type="text/css" rel="stylesheet" href="{% static 'topics/css/style.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'topics/css/style_common.css' %}">
+</head>
+
+<body>
+
+
+{% if topic %}
+<div class="topContainer">
+    <div class="homeButtonContainer">
+        <form action="{% url 'index' %}" method="get">
+            {% csrf_token %}
+            <button class="homeButton homeButtonText">Home</button>
+        </form>
+    </div>
+
+    <div class="topicContainer">
+        <div class="topicBlob">
+            <div class="topicText">
+                {{ topic.topic_text }}
+            </div>
+        </div>
+    </div>
+
+    {% if topic.is_acronym %}
+    <h3 class="topicAcronym"> - {{ topic.acronym.acronym_expanded }}</h3>
+    {% endif %}
+</div>
+
+<div class="dump">
+    <ul class="timeline">
+        {% for o in topic.oneliner_set.all %}
+        <li>
+            <p>{{ o.text }}</p>
+            <form method="POST" action="{% url 'delete_oneliner' o.id %}">
+                {% csrf_token %}
+                <input type="submit" value="Delete" name="to_delete">
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No topic</p>
+    {% endif %}
+    <form method="POST" action="{% url 'add_oneliner' topic.id %}">
+        {% csrf_token %}
+        <input type="text" name="added_oneliner">
+        <input type="submit" value="Add Oneliner">
+    </form>
+</div>
+
+
+</body>
+</html>
+
