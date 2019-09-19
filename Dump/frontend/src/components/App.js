@@ -7,7 +7,7 @@ class Topic extends React.Component
 {
     render()
     {
-        return (<h1> {this.props.display_text} </h1>);
+        return (<h1> display_text: {this.props.display_text} </h1>);
     }
 }
 
@@ -53,7 +53,7 @@ class Topics extends React.Component {
   {
     const topics = this.state.topics.map(
         function (topic) {
-            return (<li key={uniqueId()}> { topic.topic_text }{ JSON.parse(topic.is_acronym) ? ` - ${topic.acronym.acronym_expanded}` : ""} </li>);
+            return (<li key={uniqueId()} class="topicBlob"> { topic.topic_text }{ JSON.parse(topic.is_acronym) ? ` - ${topic.acronym.acronym_expanded}` : ""} </li>);
         })
 
     if (this.state.display)
@@ -88,15 +88,14 @@ class Topics extends React.Component {
   render() {
     return (
     <div>
-        <h1> {this.props.endpoint} </h1>
+        <p> {this.props.endpoint} </p>
 
         <button onClick={() => this.handleClick()}>
             Toggle Display
         </button>
 
-      <h1> display_text </h1>
       <div>
-      {this.renderText()}
+        {this.renderText()}
       </div>
 
       <h1> topics </h1>

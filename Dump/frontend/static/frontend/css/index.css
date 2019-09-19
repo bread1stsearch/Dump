@@ -1,0 +1,18 @@
+*{
+    margin:0;
+    padding:0;
+    font-family:"Trebuchet MS";
+}
+
+.topicBlob{
+    background: #416F25;
+    border: 5px solid rgba(0, 0, 0, 0.9);
+    box-sizing: border-box;
+    border-radius: 20px;
+    padding:5px;
+    margin:5px
+}
+
+li {
+    list-style-type:none;
+}
