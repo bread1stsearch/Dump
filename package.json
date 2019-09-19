@@ -1,7 +1,7 @@
 {
   "name": "dump",
   "version": "1.0.0",
-  "description": "",
+  "description": "Set up webpack - will create folder node_modules: In DumpProject/Dump, run the following:     1. Install webpack         npm i webpack webpack-cli --save-dev     2. Install babel         npm i @babel/core babel-loader @babel/preset-env @babel/preset-react babel-plugin-transform-class-properties --save-dev     3. Install React/Prop-Types         npm i react react-dom prop-types --save-dev",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -22,7 +22,20 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "weak-key": "^1.0.1",
-    "webpack": "^4.39.3",
-    "webpack-cli": "^3.3.8"
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bread1stsearch/Dump.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bread1stsearch/Dump/issues"
+  },
+  "homepage": "https://github.com/bread1stsearch/Dump#readme",
+  "dependencies": {
+    "react-native-config": "^0.11.7",
+    "react-sortablejs": "^1.5.1",
+    "sortablejs": "^1.10.0"
   }
 }

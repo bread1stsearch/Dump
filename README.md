@@ -2,6 +2,8 @@
 
 Set up webpack - will create folder node_modules:
 In DumpProject/Dump, run the following:
+    0. Init
+        npm init -y
     1. Install webpack
         npm i webpack webpack-cli --save-dev
     2. Install babel

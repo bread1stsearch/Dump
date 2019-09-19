@@ -25,7 +25,7 @@ def index(request):
             new_topic = Topic(topic_text=added_topic, add_date=timezone.now())
             new_topic.save()
             acronym = request.POST.get('acronym')
-            if acronym is not None:
+            if acronym != "":
                 new_topic.acronym = Acronym(acronym_expanded=acronym)
                 new_topic.is_acronym = True
                 new_topic.acronym.save()
