@@ -35,6 +35,7 @@
   "homepage": "https://github.com/bread1stsearch/Dump#readme",
   "dependencies": {
     "react-native-config": "^0.11.7",
+    "react-router-dom": "^5.0.1",
     "react-sortablejs": "^1.5.1",
     "sortablejs": "^1.10.0"
   }
