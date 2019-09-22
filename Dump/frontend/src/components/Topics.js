@@ -5,6 +5,12 @@ import uniqueId from 'lodash/uniqueId';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import Topic from './Topic';
 
+function GetTopic({match})
+  {
+    return (
+        <Topic endpoint={`/topics/serialize/${match.params.id}`} />
+    );
+  }
 
 class Topics extends React.Component {
   constructor(props)
@@ -32,31 +38,28 @@ class Topics extends React.Component {
     this.getTopics();
   }
 
-  renderText()
+  redirectTopic({match})
   {
-    if (this.state.display)
-    {
-        return (<Topic display_text="true"/>);
-    }
-    else
-    {
-        return (<Topic display_text="false"/>);
-    }
+    return (
+        <Topic endpoint={`/topics/serialize/${match.params.id}`} />
+    );
   }
 
-  renderTopicText()
+
+  renderTopics()
   {
     const topics = this.state.topics.map(
         function (topic) {
             return (
-
                 <li key={uniqueId()} className="topicBlob" >
-                <Router>
-                <Link to={`/topics/${topic.id}/`}>
-                     { topic.topic_text }{ JSON.parse(topic.is_acronym) ? ` - ${topic.acronym.acronym_expanded}` : ""}
-                </Link>
-                <Route path={`/${topic.id}/`} component={Topic}/>
-                </Router>
+                    <Router>
+                        <a href={`topics/${topic.id}/`}>
+                            { topic.topic_text }{ JSON.parse(topic.is_acronym) ? ` - ${topic.acronym.acronym_expanded}` : ""}
+                        </a>
+                        <Route path={`/${topic.id}/`} render={
+                                                    (props) => redirectTopic(props.match)
+                                                    } />
+                    </Router>
                 </li>
 
                     );
@@ -100,13 +103,9 @@ class Topics extends React.Component {
             Toggle Display button
         </button>
 
-      <div>
-        {this.renderText()}
-      </div>
-
       <h1> topics </h1>
       <div>
-      {this.renderTopicText()}
+      {this.renderTopics()}
       </div>
 
     </div>
