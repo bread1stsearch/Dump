@@ -4,6 +4,7 @@ import ReactSortable from "react-sortablejs";
 import uniqueId from 'lodash/uniqueId';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import Topic from './Topic';
+import Cookies from 'js-cookie';
 
 function GetTopic({match})
   {
@@ -18,13 +19,15 @@ class Topics extends React.Component {
     super(props);
     this.state =
     {
-        display:false,
+        display:true,
         topics:[],
     }
   }
 
   getTopics()
   {
+    console.log('getTopics - fetch');
+
     fetch(this.props.endpoint)
         .then(res => res.json())
         .then((data) => {
@@ -35,6 +38,7 @@ class Topics extends React.Component {
 
   componentDidMount()
   {
+    console.log('componentDidMount');
     this.getTopics();
   }
 
@@ -45,9 +49,26 @@ class Topics extends React.Component {
     );
   }
 
+  deleteTopic(id)
+  {
+        console.log('deleteTopic');
+
+        var csrftoken = Cookies.get('csrftoken');
+
+        // TODO: how to make requests with '/' at the end synonymous with non-suffixed '/'
+        fetch("topics/serialize/"+id+"/", {method:"DELETE", headers:{'X-CSRFToken': csrftoken}}).catch(console.log);
+        this.getTopics();
+
+  }
+
+  editTopic()
+  {
+
+  }
 
   renderTopics()
   {
+    console.log('renderTopics');
     const topics = this.state.topics.map(
         function (topic) {
             return (
@@ -60,17 +81,22 @@ class Topics extends React.Component {
                                                     (props) => redirectTopic(props.match)
                                                     } />
                     </Router>
+                    <button onClick={() => this.editTopic()}> Edit </button>
+                    <button onClick={() => this.deleteTopic(topic.id)}> Delete </button>
                 </li>
 
                     );
-        })
+        },this)
+
 
     if (this.state.display)
     {
         return (
             <div>
                 <p> {this.state.topics.length} </p>
+
                 <ReactSortable tag="ul"> {topics} </ReactSortable>
+
             </div>
         );
     }
@@ -95,12 +121,14 @@ class Topics extends React.Component {
   }
 
   render() {
+    console.log('render');
+
     return (
     <div>
         <p> {this.props.endpoint} </p>
 
         <button onClick={() => this.handleClick()}>
-            Toggle Display button
+            Toggle Display
         </button>
 
       <h1> topics </h1>

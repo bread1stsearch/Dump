@@ -32,7 +32,7 @@ class App extends React.Component
 function ListTopics({ match }) {
   return (
     <div>
-      <Topics endpoint="topics/serialize"/>
+      <Topics endpoint="topics/serialize/"/>
     </div>
   );
 }
