@@ -4,15 +4,26 @@ from rest_framework.response import Response
 from topics.models import Topic, Oneliner, Acronym
 from topics.serializers import TopicSerializer, OnelinerSerializer, AcronymSerializer
 
-
 class TopicList(generics.ListCreateAPIView):
     queryset = Topic.objects.all()
     serializer_class = TopicSerializer
+
+    def get_object(self, pk):
+        try:
+            return Topic.objects.get(pk=pk)
+        except Topic.DoesNotExist:
+            print("does not exist")
 
     def get(self, request):
         topics = Topic.objects.all()
         data = TopicSerializer(topics, many=True).data
         return Response(data)
+
+    def delete(self, request, pk):
+        to_delete = self.get_object(pk)
+        to_delete.delete()
+        return Response("204")
+
 
 
 class TopicDetail(generics.RetrieveUpdateDestroyAPIView):
