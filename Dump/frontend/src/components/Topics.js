@@ -7,13 +7,6 @@ import Topic from './Topic';
 import Cookies from 'js-cookie';
 import 'babel-polyfill';
 
-function GetTopic({match})
-  {
-    return (
-        <Topic endpoint={`/topics/serialize/${match.params.id}`} />
-    );
-  }
-
 class Topics extends React.Component {
   constructor(props)
   {
@@ -25,15 +18,18 @@ class Topics extends React.Component {
     }
   }
 
-  componentDidUpdate()
+  componentDidUpdate(prevState)
   {
     console.log("componentDidUpdate");
-    this.render();
+    if (prevState.topics != this.state.topics)
+    {
+        console.log("topic has updated");
+    }
   }
 
   getTopics()
   {
-    console.log('getTopics - fetch');
+    console.log('getTopics');
 
     fetch(this.props.endpoint)
         .then(res => res.json())
@@ -113,15 +109,6 @@ class Topics extends React.Component {
     {
         return (<p> No topics </p>);
     }
-
-    /* vs just:
-    so weird:
-    return (
-            <div>
-                <p> {this.state.topics.length} </p>
-                <ReactSortable tag="ul"> {topics} </ReactSortable>
-            </div>
-    );*/
   }
 
   handleClick()
