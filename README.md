@@ -13,6 +13,8 @@ In DumpProject/Dump, run the following:
     4. For CSRF
         npm install js-cookie --save
         https://www.techiediaries.com/django-react-forms-csrf-axios/
+    5. For async functionality:
+        npm install babel-polyfill --save
         
 In DumpProject/Dump, run the following:
     python manage.py migrate

@@ -5,6 +5,7 @@ import uniqueId from 'lodash/uniqueId';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import Topic from './Topic';
 import Cookies from 'js-cookie';
+import 'babel-polyfill';
 
 function GetTopic({match})
   {
@@ -24,6 +25,12 @@ class Topics extends React.Component {
     }
   }
 
+  componentDidUpdate()
+  {
+    console.log("componentDidUpdate");
+    this.render();
+  }
+
   getTopics()
   {
     console.log('getTopics - fetch');
@@ -31,9 +38,12 @@ class Topics extends React.Component {
     fetch(this.props.endpoint)
         .then(res => res.json())
         .then((data) => {
-          this.setState({ topics: data})
+          this.setState({ topics: data }, () => {
+          console.log("SET STATE FOR TOPIC AFTER GET" + JSON.stringify(this.state.topics))
+          })
         })
         .catch(console.log);
+    //this.forceUpdate();
   }
 
   componentDidMount()
@@ -49,16 +59,15 @@ class Topics extends React.Component {
     );
   }
 
-  deleteTopic(id)
+  async deleteTopic(id)
   {
         console.log('deleteTopic');
 
         var csrftoken = Cookies.get('csrftoken');
 
         // TODO: how to make requests with '/' at the end synonymous with non-suffixed '/'
-        fetch("topics/serialize/"+id+"/", {method:"DELETE", headers:{'X-CSRFToken': csrftoken}}).catch(console.log);
+        await fetch("topics/serialize/"+id+"/", {method:"DELETE", headers:{'X-CSRFToken': csrftoken}}).catch(console.log);
         this.getTopics();
-
   }
 
   editTopic()
@@ -132,6 +141,7 @@ class Topics extends React.Component {
         </button>
 
       <h1> topics </h1>
+      <p> {JSON.stringify(this.state.topics)} </p>
       <div>
       {this.renderTopics()}
       </div>
