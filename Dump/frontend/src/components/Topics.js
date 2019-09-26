@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import ReactSortable from "react-sortablejs";
 import uniqueId from 'lodash/uniqueId';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
-import Topic from './Topic';
+import {Topic, TopicForm} from './Topic';
 import Cookies from 'js-cookie';
 import 'babel-polyfill';
 
@@ -15,6 +15,7 @@ class Topics extends React.Component {
 	{
 		display:true,
 		topics:[],
+		newTopicText:"",
 	}
   }
 
@@ -66,10 +67,6 @@ class Topics extends React.Component {
 		this.getTopics();
   }
 
-  async postTopic()
-  {
-  }
-
   editTopic()
   {
 	return (<div><h1> edit </h1></div>);
@@ -115,11 +112,6 @@ class Topics extends React.Component {
 	}
   }
 
-  handleClick()
-  {
-	this.setState({display:!this.state.display});
-  }
-
   render() {
 	console.log('render');
 
@@ -131,12 +123,16 @@ class Topics extends React.Component {
 			Toggle Display
 		</button>
 
-	  <h1> topics </h1>
+	  <h1> Topics </h1>
 	  <p> {JSON.stringify(this.state.topics)} </p>
 	  <div>
 	  {this.renderTopics()}
 	  </div>
 
+      <h1> Add Topic </h1>
+      <div>
+        <TopicForm endpoint={this.props.endpoint}/>
+      </div>
 	</div>
 	);
 

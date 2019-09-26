@@ -24,3 +24,19 @@ For Windows:
     1. add pip.exe/pip3.exe to %PATH% - setx PATH="%PATH%;C\path\to\folder\containing\executable"
     2. pip install djangorestframework in Dump/Dump/topics/
     
+
+RESOURCES:=========================================================================================
+React Hooks: https://reactjs.org/docs/react-component.html#componentdidupdate
+
+setState: https://medium.com/@agm1984/reacts-setstate-is-a-special-function-and-it-helps-with-asynchronous-concurrency-669eddbe3dd1
+
+React Forms: 
+- https://reactjs.org/docs/forms.html
+- https://facebook.github.io/react-native/docs/handling-text-input
+
+Checkbox Component:
+https://medium.com/@colebemis/building-a-checkbox-component-with-react-and-styled-components-8d3aa1d826dd
+
+Conditional Rendering:
+https://reactjs.org/docs/conditional-rendering.html
+
