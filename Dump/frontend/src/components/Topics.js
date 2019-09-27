@@ -72,6 +72,11 @@ class Topics extends React.Component {
 	return (<div><h1> edit </h1></div>);
   }
 
+  handleClick()
+  {
+    this.setState({display:!this.state.display});
+  }
+
   renderTopics()
   {
     console.log('renderTopics');
