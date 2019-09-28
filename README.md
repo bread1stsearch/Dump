@@ -25,7 +25,7 @@ For Windows:
     2. pip install djangorestframework in Dump/Dump/topics/
     
 
-RESOURCES:=========================================================================================
+FRONTEND RESOURCES:=========================================================================================
 React Hooks: https://reactjs.org/docs/react-component.html#componentdidupdate
 
 setState: https://medium.com/@agm1984/reacts-setstate-is-a-special-function-and-it-helps-with-asynchronous-concurrency-669eddbe3dd1
@@ -40,3 +40,6 @@ https://medium.com/@colebemis/building-a-checkbox-component-with-react-and-style
 Conditional Rendering:
 https://reactjs.org/docs/conditional-rendering.html
 
+
+BACKEND - DJANGO -  RESOURCES:=========================================================================================
+Serializers: https://www.django-rest-framework.org/api-guide/serializers/#serializing-objects
