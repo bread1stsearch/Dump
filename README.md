@@ -43,3 +43,8 @@ https://reactjs.org/docs/conditional-rendering.html
 
 BACKEND - DJANGO -  RESOURCES:=========================================================================================
 Serializers: https://www.django-rest-framework.org/api-guide/serializers/#serializing-objects
+Serializer - Nested Relationships - https://www.django-rest-framework.org/api-guide/relations/
+    For problem:
+    when serializing nested objects that refer to each other, how to create the serializer for it?
+https://www.django-rest-framework.org/tutorial/1-serialization/
+https://www.django-rest-framework.org/tutorial/2-requests-and-responses/
