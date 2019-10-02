@@ -3,9 +3,126 @@ import ReactDOM from "react-dom";
 import ReactSortable from "react-sortablejs";
 import uniqueId from 'lodash/uniqueId';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
-import {Topic, TopicForm} from './Topic';
+//import {Topic, TopicForm} from './Topic';
 import Cookies from 'js-cookie';
 import 'babel-polyfill';
+
+class Topic extends React.Component
+{
+    constructor(props)
+    {
+        super(props);
+        this.state = { attributes: [] };
+    }
+
+    componentDidMount()
+    {
+        fetch(this.props.endpoint)
+        .then(response => response.json)
+        .then(data => this.setState({attributes:data}))
+        .catch(console.log);
+    }
+
+    render()
+    {
+        return (
+            <h1> topic text: {this.state.attributes.topic_text} </h1>
+        );
+    }
+}
+
+class TopicForm extends React.Component
+{
+    constructor(props)
+    {
+        super(props);
+        this.state =
+        {
+            topic_text : "",
+            isAcronym : false,
+            acronymExpanded : "",
+        };
+
+        this.onTextChange = this.onTextChange.bind(this);
+        this.onIsAcronymChange = this.onIsAcronymChange.bind(this);
+        this.onAcronymExpandedTextChange = this.onAcronymExpandedTextChange.bind(this);
+        this.addTopic = this.addTopic.bind(this);
+    }
+
+    onTextChange(event)
+    {
+        console.log("TopicForm onTextChange");
+        this.setState({topic_text: event.target.value});
+    }
+
+    onIsAcronymChange(event)
+    {
+        console.log("TopicForm onIsAcronymChange");
+        this.setState({isAcronym : event.target.checked});
+    }
+
+    onAcronymExpandedTextChange(event)
+    {
+        console.log("topicForm onAcronymExpandedTextChange");
+        this.setState({acronymExpanded : event.target.value});
+    }
+
+    async addTopic(event)
+    {
+        console.log("addTopic");
+
+        var csrftoken = Cookies.get('csrftoken');
+
+        var topic = {
+            topic_text: this.state.topic_text,
+            is_acronym: this.state.isAcronym,
+            acronym_expanded : this.state.acronymExpanded,
+            oneliner_set: []
+        };
+
+        await fetch(this.props.endpoint,
+            {
+                method : "POST",
+                body : JSON.stringify(topic),
+                headers : {
+                    "X-CSRFToken" : csrftoken,
+                    "Accept-Encoding" : "gzip, deflate",
+                    "Content-Type" : "application/json",
+                    }
+        }).then(console.log("finished POST topic"))
+        .catch(console.log);
+    }
+
+    render()
+    {
+        const isAcronym = this.state.isAcronym;
+        let acronymExpandedTextInput;
+
+        if (isAcronym)
+        {
+            acronymExpandedTextInput = (
+                <input type="text" value={this.state.acronymExpanded} onChange={this.onAcronymExpandedTextChange} />
+            );
+        }
+        return (
+            <div>
+                <form onSubmit={this.addTopic} >
+                    <label>
+                        Topic:
+                        <input type="text" value={this.state.topic_text} onChange={this.onTextChange} />
+                    </label>
+                    <br/>
+                    <label>
+                        Acronym:
+                        <input type="checkbox" checked={this.state.isAcronym} onChange={this.onIsAcronymChange} />
+                        {acronymExpandedTextInput}
+                    </label>
+                    <input type="submit" value="Add Topic"/>
+                </form>
+            </div>
+        );
+    }
+}
 
 class Topics extends React.Component {
   constructor(props)

@@ -34,7 +34,7 @@ class TopicForm extends React.Component
         super(props);
         this.state =
         {
-            text : "",
+            topic_text : "",
             isAcronym : false,
             acronymExpanded : "",
         };
@@ -48,7 +48,7 @@ class TopicForm extends React.Component
     onTextChange(event)
     {
         console.log("TopicForm onTextChange");
-        this.setState({text: event.target.value});
+        this.setState({topic_text: event.target.value});
     }
 
     onIsAcronymChange(event)
@@ -70,10 +70,9 @@ class TopicForm extends React.Component
         var csrftoken = Cookies.get('csrftoken');
 
         var topic = {
-            topic_text: this.state.text,
+            topic_text: this.state.topic_text,
             is_acronym: this.state.isAcronym,
-            oneliner_set: [],
-            acronym: {},
+            acronym_expanded: this.state.acronymExpanded
         };
 
         await fetch(this.props.endpoint,
@@ -105,7 +104,7 @@ class TopicForm extends React.Component
                 <form onSubmit={this.addTopic} >
                     <label>
                         Topic:
-                        <input type="text" value={this.state.text} onChange={this.onTextChange} />
+                        <input type="text" value={this.state.topic_text} onChange={this.onTextChange} />
                     </label>
                     <br/>
                     <label>
