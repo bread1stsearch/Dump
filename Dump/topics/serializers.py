@@ -57,6 +57,8 @@ class TopicSerializer(serializers.ModelSerializer):
         #                                         text=o,
         #                                         last_update=timezone.now())
         # Acronym.objects.create(topic=topic, acronym_expanded=acronym_expanded)
+        # https://stackoverflow.com/questions/30665220/unable-to-get-a-non-model-field-in-the-validated-data-of-a-django-rest-framework/33247673
+
         if validated_data["is_acronym"]:
             acronym_expanded = validated_data.pop('acronym_expanded')
 

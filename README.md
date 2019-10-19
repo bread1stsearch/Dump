@@ -44,7 +44,14 @@ https://reactjs.org/docs/conditional-rendering.html
 BACKEND - DJANGO -  RESOURCES:=========================================================================================
 Serializers: https://www.django-rest-framework.org/api-guide/serializers/#serializing-objects
 Serializer - Nested Relationships - https://www.django-rest-framework.org/api-guide/relations/
-    For problem:
+
+For problem:
     when serializing nested objects that refer to each other, how to create the serializer for it?
+    
+For problem:
+    when sending a non-model field in content, use the internal_data method to add this field
+    reference:
+    https://stackoverflow.com/questions/30665220/unable-to-get-a-non-model-field-in-the-validated-data-of-a-django-rest-framework/33247673
+    
 https://www.django-rest-framework.org/tutorial/1-serialization/
 https://www.django-rest-framework.org/tutorial/2-requests-and-responses/
