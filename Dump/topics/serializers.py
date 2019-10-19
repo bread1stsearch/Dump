@@ -56,11 +56,12 @@ class TopicSerializer(serializers.ModelSerializer):
         #                                         text=o,
         #                                         last_update=timezone.now())
         # Acronym.objects.create(topic=topic, acronym_expanded=acronym_expanded)
+        if validated_data["is_acronym"]:
+            acronym_expanded = validated_data.pop('acronym_expanded')
 
         topic = Topic.objects.create(**validated_data)
 
         if topic.is_acronym:
-            acronym_expanded = validated_data.pop('acronym_expanded')
             Acronym.objects.create(topic=topic, acronym_expanded=acronym_expanded)
 
         return topic
