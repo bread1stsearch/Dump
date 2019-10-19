@@ -34,6 +34,15 @@ class TopicSerializer(serializers.ModelSerializer):
         fields = ['id', 'topic_text', 'is_acronym', 'oneliner_set', 'acronym']
         depth = 1
 
+    def to_internal_value(self, data):
+        internal_value = super(TopicSerializer, self).to_internal_value(data)
+
+        internal_value.update({
+            "acronym_expanded": data.get("acronym_expanded")
+        })
+
+        return internal_value
+
     def create(self, validated_data):
         """
         Create and return a new `Snippet` instance, given the validated data.
@@ -47,9 +56,13 @@ class TopicSerializer(serializers.ModelSerializer):
         #                                         text=o,
         #                                         last_update=timezone.now())
         # Acronym.objects.create(topic=topic, acronym_expanded=acronym_expanded)
-        if validated_data["is_acronym"]:
-            acronym_expanded = validated_data.pop('acronym_expanded')
+
         topic = Topic.objects.create(**validated_data)
+
+        if topic.is_acronym:
+            acronym_expanded = validated_data.pop('acronym_expanded')
+            Acronym.objects.create(topic=topic, acronym_expanded=acronym_expanded)
+
         return topic
 
     def update(self, instance, validated_data):

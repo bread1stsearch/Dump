@@ -76,9 +76,12 @@ class TopicForm extends React.Component
         var topic = {
             topic_text: this.state.topic_text,
             is_acronym: this.state.isAcronym,
-            acronym_expanded : this.state.acronymExpanded,
-            oneliner_set: []
         };
+
+        if (this.state.isAcronym)
+        {
+            topic["acronym_expanded"] = this.state.acronymExpanded;
+        }
 
         await fetch(this.props.endpoint,
             {
