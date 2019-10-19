@@ -37,9 +37,10 @@ class TopicSerializer(serializers.ModelSerializer):
     def to_internal_value(self, data):
         internal_value = super(TopicSerializer, self).to_internal_value(data)
 
-        internal_value.update({
-            "acronym_expanded": data.get("acronym_expanded")
-        })
+        if data["is_acronym"]:
+            internal_value.update({
+                "acronym_expanded": data.get("acronym_expanded")
+            })
 
         return internal_value
 
