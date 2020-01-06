@@ -22,7 +22,7 @@ def index(request):
     if request.method == 'POST':
         try:
             added_topic = request.POST.get('added_topic')
-            new_topic = Topic(topic_text=added_topic, add_date=timezone.now())
+            new_topic = Topic(topic_text=added_topic, created=timezone.now())
             new_topic.save()
             acronym = request.POST.get('acronym')
             if acronym != "":
